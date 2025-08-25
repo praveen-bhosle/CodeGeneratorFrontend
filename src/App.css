@@ -1,1 +1,6 @@
 @import "tailwindcss"; 
+
+.file { 
+    @apply flex gap-2 border-[0px] border-white w-full  items-center bg-[#171717] text-zinc-300  hover:bg-[#2F2F2F] hover:text-white cursor-pointer  select-none;
+}
+
