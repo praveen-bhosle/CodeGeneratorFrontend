@@ -11,7 +11,7 @@ const navigator = useNavigate() ;
 const sendMessage = async () => {  
     const res = await AxiosApiHandler({ url : `/project/create?question=${question}` ,  method : 'post' }) ; 
     if(res.success) {  
-      navigator(`/~/${res.data.projectId}`) ;
+      navigator(`/~/${res.data.id}`) ;
       return ; 
     }
     else { 

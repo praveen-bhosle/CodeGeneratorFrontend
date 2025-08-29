@@ -1,7 +1,6 @@
 export type File = {
-    id : number , 
-    filepath : string , 
-    content : string  
+    name : string , 
+    path : string 
 }
 
 export type Directory = { 

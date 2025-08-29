@@ -3,12 +3,21 @@ import type { WebContainer } from "@webcontainer/api";
 import type { File } from "../types/FileStructure";
 
 export async function writeFile( file :File  , webcontainerInstance : WebContainer ) { 
+  const currrent = await webcontainerInstance.fs.readdir('/') ;
+  console.log(currrent) ; 
   console.log("Writing to file " + file.filepath)
-  await webcontainerInstance.fs.writeFile(file.filepath,file.content) ; 
+  const filepath = file.filepath ; 
+  const dirs = filepath.split('/') ; 
+  console.log(dirs) ;
+  for( let i = 0 ;  i <  dirs.length ; i++ ) { 
+    if(dirs[i]=='') continue ; 
+    if(i==dirs.length-1) await webcontainerInstance.fs.writeFile(file.filepath,file.content) ; 
+    else  await webcontainerInstance.fs.mkdir(dirs[i]) ; 
+  }
 }
 
 export async function updateFiles( files :File[] , webcontainerInstance : WebContainer) {
-  for(let  i = 0 ; i<files.length ; i++) { 
+  for(let  i = 0 ; i<6 ; i++) {  
     writeFile(files[i],webcontainerInstance) ; 
   }    
 }
