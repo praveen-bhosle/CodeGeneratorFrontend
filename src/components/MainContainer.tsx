@@ -38,16 +38,18 @@ const containerStartFunction =  async (files : any  ) => {
 }
 
   return (  
-    <div className="border-[#2F2F2F] border-[1px] bg-[#171717] p-2  flex flex-col gap-2" >
+    <div className="border-[#2F2F2F] border-[1px] bg-[#171717] p-2  flex flex-col gap-2 h-full rounded-sm" >
        <div className="flex gap-2 border-white  items-center ">  
           <div>{ chatHidden ? <img className="w-[20px] cursor-pointer" src='/sidebar-open.svg' /> : <img className="w-[20px] cursor-pointer" src='/sidebar-close.svg'/> } </div>
           <div className='bg-black flex gap-2 py-[3px] px-[5px] rounded-xl '>  
             { view === 'preview' ?  <>  <Button1 text="Code" onClick = { () => { setView('code') ;  } } />   <Button2 text="Preview" /> </> :  <>  <Button2 text="Code" />  <Button1 text="Preview"  onClick={ () => { setView('preview')  }}/> </> }
           </div> 
         </div>
+        <div className="flex-1"> 
         { 
         filesMounted &&  <IDE webcontainerInstance={webContainerRef.current!}/>  
         }
+        </div>         
     </div>    
   )
 }

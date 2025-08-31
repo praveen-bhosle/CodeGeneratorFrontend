@@ -1,6 +1,25 @@
 @import "tailwindcss"; 
 
 .file { 
-    @apply flex gap-2 border-[0px] border-white w-full  items-center bg-[#171717] text-zinc-300  hover:bg-[#2F2F2F] hover:text-white cursor-pointer  select-none;
+    @apply  flex items-center w-full  bg-[#171717] text-zinc-300  hover:bg-[#2F2F2F] hover:text-white cursor-pointer  select-none ;
 }
 
+.scrollable-element {
+    overflow-y: auto;
+    /* Firefox */
+    scrollbar-width: thin;
+    scrollbar-color: #000000 #f1f1f1;
+  }
+  
+  /* Chrome, Edge, Safari */
+  .scrollable-element::-webkit-scrollbar {
+    width: 8px;
+  }
+  .scrollable-element::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  .scrollable-element::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 4px;
+  }
+  

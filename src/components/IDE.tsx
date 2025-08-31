@@ -1,22 +1,21 @@
-import CodeEditor from "./CodeEditor2";
+import CodeEditor from "./CodeEditor";
 import FileTree from "./FileTree";
 import type { WebContainer } from "@webcontainer/api";
-import { CurrentFilePathContext } from "../context/CurrentFilePathContext";
+import { FilesContext } from "../context/FilesContext";
 import { useState } from "react";
+import type { FileBuffer } from "../types/FileBuffer";
 
 const IDE = (  { webcontainerInstance } : { webcontainerInstance : WebContainer  }) => {    
-
-const [ currentFilePath , setCurrentFilePath ] = useState('/index.html') ; 
-
+const [ currentFiles , setCurrentFiles ] = useState<FileBuffer[]|null>([]) ; 
+const [openedFilePath , setOpenedFilePath] = useState<string|null>("/index.html") ; 
 return  ( 
-<div className="flex border-white border-2"> 
-<CurrentFilePathContext value={ {currentFilePath , setCurrentFilePath}} >
-    <FileTree webcontainerInstance={ webcontainerInstance }  /> 
-    <CodeEditor  webcontainerInstance={webcontainerInstance} /> 
-</CurrentFilePathContext>
+<div className="flex border-white border- h-[93vh]"> 
+    <FilesContext value = {{ currentFiles ,setCurrentFiles , openedFilePath , setOpenedFilePath  }} >
+        <FileTree webcontainerInstance={ webcontainerInstance }  /> 
+        <CodeEditor  webcontainerInstance={webcontainerInstance} /> 
+    </FilesContext> 
 </div>
 ) 
-
 }
 
 export default IDE ; 

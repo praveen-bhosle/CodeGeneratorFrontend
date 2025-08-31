@@ -4,11 +4,13 @@ import type { Project } from "../types/Project";
 import { AxiosApiHandler } from "../api/AxiosApiHandler";
 import Chat from "./Chat";
 import MainContainer from "./MainContainer";
+import { ProjectContext } from "../context/ProjectContext";
 
 const ProjectPage = () => {
     const {id}  = useParams() ;
     const router = useNavigate() ;
     const [ project  , setProject ]  = useState<Project|null>(null) ;
+    const [ _ , setFileObject] = useState<any|null>(null) ; 
     const parsedId = parseInt(id!) ;
     const fetchProject = async (id : number ) => { 
         const response  = await AxiosApiHandler( {  url : `/project/${id}` , method : "get" }) ; 
@@ -20,11 +22,11 @@ const ProjectPage = () => {
         if(isNaN(parsedId)) router('/error') ;     
         fetchProject(parsedId) ;  
     },[]) 
-
     return ( 
-        <div className="bg-black text-white h-screen flex justify-center items-center "> 
+        <div className="bg-black text-white h-screen flex justify-center items-center"> 
             { 
             project ? 
+            <ProjectContext value={ { id : parsedId , fileObject : JSON.parse(project?.files!)  , setFileObject   }  } >
             <div className="w-screen h-screen flex">
                 {
                 !chatHidden  && 
@@ -36,6 +38,7 @@ const ProjectPage = () => {
                 <MainContainer files = { JSON.parse(project.files)  } setChatHidden = { setChatHidden} chatHidden = { chatHidden}  /> 
                 </div>
             </div> 
+            </ProjectContext>
             :
             <div> 
             Fetching project details.

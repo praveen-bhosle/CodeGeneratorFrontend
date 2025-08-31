@@ -1,11 +1,13 @@
 import type { WebContainer } from "@webcontainer/api"
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import type { Directory } from "../types/FileStructure";
 import DirUI from "./DirUI";
 import FileUI from "./FileUI";
+import { FilesContext } from "../context/FilesContext";
 
 const FileTree = ({webcontainerInstance  } : { webcontainerInstance : WebContainer }) => { 
   const [dir,setDir] = useState<Directory|null>(null) ; 
+  const { currentFiles } = useContext(FilesContext) ; 
   async function  getFilesInCurrentDir( path : string ) { 
     const files = await webcontainerInstance.fs.readdir(path , { withFileTypes : true }) ; 
     return files ; 
@@ -34,10 +36,12 @@ const FileTree = ({webcontainerInstance  } : { webcontainerInstance : WebContain
 
   useEffect( () => {  
     update() ; 
-  } , [])
+    console.log("updating filetree") ; 
+  } , [currentFiles])
+
 
   return (
-    <div className="bg-black text-sm">  
+    <div className="text-sm border-1 bg-[#171717] border-[#2F2F2F] px-[4px]">  
      { dir && dir.directories.map( (dir,idx) =>  <DirUI dir={dir} depth={0} key={idx}   />  ) } 
      { dir && dir.files.map((file,idx) => <FileUI file={ file } depth={0} key={idx}  /> ) }
     </div> 
